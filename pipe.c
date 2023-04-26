@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
-/*A sequência de incremento será feita de 5 em 5 valores*/
+
 
 int primo(int number){
     int limite;

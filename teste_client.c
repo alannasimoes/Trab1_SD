@@ -1,11 +1,3 @@
-/*
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <stdlib.h>
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <netinet/in.h>
