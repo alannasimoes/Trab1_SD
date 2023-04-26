@@ -14,7 +14,6 @@ void sigint(){
 
 void sigusr1(){
     printf("Recebi um signal pouco específico.\n");
-    exit(0);
 }
 
 int main(){
@@ -27,20 +26,20 @@ int main(){
     sigdelset(&signals_set,SIGINT);
     sigdelset(&signals_set,SIGUSR1);
 
-    printf("O número do processo atual é: %i\n", pid_atual);
     signal(SIGKILL, sigkill);
     signal(SIGINT, sigint);
     signal(SIGUSR1, sigusr1);
+    printf("O número do processo atual é: %i\n", pid_atual);
     printf("Digite 1 para busy wait e 2 para blocking wait: ");
     scanf("%i", &twait);
     
     if (twait == 1){
-        printf("Esperando a recepção do sinal por 2 minutos.\n");
-        for (int i =0; i <= 120; i++){
-            sleep(1);
-        }
+        printf("Esperando a recepção do sinal em busy wait.\n");
+        while(1);
+
     }
     else if (twait == 2){
+        printf("Esperando a recepção do sinal em blocking wait.\n");
         sigwait(&signals_set, &tsignal);
     }
     else{
