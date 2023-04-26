@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include <math.h>
 /*A sequência de incremento será feita de 5 em 5 valores*/
 
@@ -22,8 +23,10 @@ int main (void) {
     int iterante = 1;
     int limitante = 0;
     char numero[20], buffer [20];
+    time_t timevar;
     printf("Insira o a quantidade de números a ser analisada: ");
     scanf("%i", &quant);
+    srand ((unsigned) time (&timevar));
     if (pipe (pipe_operations)){
         printf("Falha na criação do pipe \n");
         return 1;
@@ -39,7 +42,7 @@ int main (void) {
             sprintf(numero, "%i", iterante);
             write (pipe_operations[1],numero,20);
             limitante ++;
-            iterante+=5;
+            iterante+=rand() % 100 + 1;
         }
         sprintf(numero, "%i", 0);
         write (pipe_operations[1],numero,20);
