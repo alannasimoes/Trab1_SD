@@ -19,14 +19,33 @@ void sigusr1(){
 
 int main(){
     int pid_atual = getpid();
+    int twait, tsignal;
+    sigset_t signals_set;
+
+    sigfillset(&signals_set);
+    sigdelset(&signals_set,SIGKILL);
+    sigdelset(&signals_set,SIGINT);
+    sigdelset(&signals_set,SIGUSR1);
+
     printf("O número do processo atual é: %i\n", pid_atual);
     signal(SIGKILL, sigkill);
     signal(SIGINT, sigint);
     signal(SIGUSR1, sigusr1);
-    printf("Esperando a recepção do sinal por 1 minuto.\n");
-    for (int i =0; i <= 120; i++){
-        sleep(1);
+    printf("Digite 1 para busy wait e 2 para blocking wait: ");
+    scanf("%i", &twait);
+    
+    if (twait == 1){
+        printf("Esperando a recepção do sinal por 2 minutos.\n");
+        for (int i =0; i <= 120; i++){
+            sleep(1);
+        }
+    }
+    else if (twait == 2){
+        sigwait(&signals_set, &tsignal);
+    }
+    else{
+        printf("Valor inválido \n");
+        return -1;
     }
     return 0;
 }
-
