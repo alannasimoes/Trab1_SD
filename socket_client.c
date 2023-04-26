@@ -9,12 +9,11 @@
   
 int main()
 {
-    int status, valread, client_socket;
     struct sockaddr_in server_address = {
         .sin_family = AF_INET,
         .sin_port = htons(PORT)
     };
-    
+    int status, client_socket;
     char numero_string[20], buffer[20];
     int iterante = 1;
     int limitante = 0;
